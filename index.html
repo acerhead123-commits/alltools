@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>allTools06 · modern tool hub</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font: clean, modern sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #0c0c0c;  /* deep black background */
+      color: #eaeaef;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* black‑grey theme */
+    .bg-dark-surface {
+      background-color: #151515;  /* dark grey surface */
+    }
+    .bg-card {
+      background-color: #1e1e1e;  /* card background */
+    }
+    .text-soft {
+      color: #b0b3b8;
+    }
+    .border-subtle {
+      border: 1px solid #2b2b2b;
+    }
+
+    /* layout */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* header */
+    .site-header {
+      background-color: #0a0a0a;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #272727;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;        /* slightly bold as requested */
+      letter-spacing: -0.02em;
+      color: white;
+      line-height: 1.2;
+    }
+    /* subtle accent on "06" if needed — but keep clean */
+    .logo span {
+      font-weight: 400;
+      color: #3b82f6; /* blue accent */
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #e0e0e0;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #3b82f6;
+    }
+    .header-contact {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1c1c1c;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+    }
+    .header-contact i {
+      color: #3b82f6;
+      font-size: 1rem;
+    }
+    .header-contact a {
+      color: #cccccc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .header-contact a:hover {
+      color: white;
+    }
+
+    /* hero */
+    .hero {
+      padding: 3.5rem 0 2.5rem 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 3.8rem);
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #c0c4d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #b0b3b8;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+    }
+    .hero-cta {
+      margin: 2rem 0 2.5rem;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.9rem 3rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background-color: #3b82f6;
+      transform: scale(1.02);
+    }
+    .hero-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      color: #6b7280;
+    }
+    .hero-icons i {
+      font-size: 2.8rem;
+      background: #1f1f1f;
+      padding: 1rem;
+      border-radius: 30px;
+      color: #3b82f6;
+      border: 1px solid #2f2f2f;
+      transition: all 0.2s;
+    }
+    .hero-icons i:hover {
+      color: white;
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+
+    /* search */
+    .search-wrapper {
+      max-width: 700px;
+      margin: 0 auto 3rem auto;
+      padding: 0 1rem;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #1b1b1b;
+      border-radius: 70px;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid #333;
+      transition: border 0.2s;
+    }
+    .search-box:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+    .search-box i {
+      color: #7e7e8a;
+      font-size: 1.4rem;
+      margin-right: 0.8rem;
+    }
+    .search-box input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0.9rem 0;
+      font-size: 1.2rem;
+      color: white;
+      outline: none;
+    }
+    .search-box input::placeholder {
+      color: #5a5a66;
+      font-weight: 400;
+    }
+
+    /* sections & cards */
+    .tool-section {
+      margin-bottom: 4rem;
+    }
+    .section-heading {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: white;
+    }
+    .section-sub {
+      color: #a0a4ae;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #2563eb;
+      padding-left: 1rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* tool card */
+    .tool-card {
+      background: #1a1a1a;
+      border-radius: 28px;
+      padding: 1.6rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s ease;
+      border: 1px solid #2c2c2c;
+      display: flex;
+      flex-direction: column;
+    }
+    .tool-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 28px -10px #1e3a8a30;
+      border-color: #3b82f6;
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      color: #3b82f6;
+      margin-bottom: 1.2rem;
+    }
+    .tool-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: white;
+    }
+    .tool-desc {
+      color: #a6a9b2;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .card-btn {
+      background: transparent;
+      border: 1px solid #3b82f6;
+      color: #3b82f6;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 50px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .card-btn:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    /* footer */
+    .site-footer {
+      background: #0a0a0a;
+      border-top: 1px solid #222;
+      padding: 3rem 0 2.5rem;
+      margin-top: 3rem;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    .footer-logo h2 {
+      font-size: 1.9rem;
+      font-weight: 600;   /* match header weight */
+      color: white;
+      margin-bottom: 0.2rem;
+    }
+    .footer-logo p {
+      color: #9ca3af;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+    .footer-email i {
+      color: #3b82f6;
+      margin-right: 0.5rem;
+    }
+    .footer-email a {
+      color: #ccc;
+      text-decoration: none;
+      border-bottom: 1px dashed #444;
+    }
+    .footer-email a:hover {
+      color: white;
+      border-bottom-color: #3b82f6;
+    }
+    .footer-links a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 0.8rem;
+    }
+    .footer-links a:hover {
+      color: #3b82f6;
+    }
+
+    /* no tools message */
+    .no-match {
+      text-align: center;
+      padding: 3rem;
+      background: #151515;
+      border-radius: 50px;
+      margin: 2rem 0;
+      color: #aaa;
+      font-size: 1.3rem;
+    }
+    .hidden-section {
+      display: none !important;
+    }
+
+    /* mobile adjustments */
+    @media (max-width: 700px) {
+      .header-flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+      .header-contact {
+        justify-content: center;
+      }
+      .hero-icons i {
+        font-size: 2rem;
+        padding: 0.7rem;
+      }
+      .section-heading {
+        font-size: 1.8rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1rem;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+    }
+
+    /* hide sections when filter active — will be controlled by js */
+    .tool-section.filter-hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER (logo, nav, email) - logo updated to "ALL Tools06" -->
+<header class="site-header">
+  <div class="container header-flex">
+    <!-- NEW LOGO: ALL Tools06, slightly bold, clean font -->
+    <div class="logo">ALL Tools06</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Tools</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="header-contact">
+      <i class="fa-regular fa-envelope"></i>
+      <a href="mailto:alltools06@gmail.com">alltools06@gmail.com</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO SECTION -->
+  <section class="hero container">
+    <h1>Your Daily Tools, All in One Place</h1>
+    <div class="hero-sub">Convert, calculate, compress, and simplify your everyday tasks — fast and free.</div>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary">Explore Tools</a>
+    </div>
+    <!-- simple illustration icons -->
+    <div class="hero-icons">
+      <i class="fa-solid fa-image"></i>
+      <i class="fa-solid fa-file-lines"></i>
+      <i class="fa-solid fa-code"></i>
+      <i class="fa-solid fa-video"></i>
+    </div>
+  </section>
+
+  <!-- SEARCH BAR (filter live) -->
+  <div class="search-wrapper">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="toolSearch" placeholder="Search a tool…" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- DYNAMIC TOOL SECTIONS (filled by javascript) -->
+  <div class="container" id="sectionsContainer"></div>
+
+  <!-- small message for no results (hidden by default) -->
+  <div id="noResultsMessage" class="container no-match" style="display: none;">
+    <i class="fa-regular fa-face-frown" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+    <p>No tools match your search. Try another keyword.</p>
+  </div>
+</main>
+
+<!-- FOOTER (logo updated to ALL Tools06) -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">
+      <h2>ALL Tools06</h2>   <!-- updated footer logo -->
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div class="footer-email">
+      <i class="fa-regular fa-envelope"></i>
+      <a href="mailto:alltools06@gmail.com">alltools06@gmail.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a> | 
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    // ---------- TOOL DATABASE (with icons tailored to each tool) ----------
+    const categories = [
+      {
+        name: '🖼️ Image Tools',
+        sub: 'Edit, transform, and optimize images instantly.',
+        iconCat: 'fa-image',
+        tools: [
+          { name: 'Image Converter', icon: 'fa-rotate', desc: 'Convert between JPG, PNG, WEBP & more.' },
+          { name: 'Image Compressor', icon: 'fa-compress', desc: 'Reduce file size without quality loss.' },
+          { name: 'Image Resizer', icon: 'fa-expand', desc: 'Resize images to any dimension.' },
+          { name: 'Image Cropper', icon: 'fa-crop', desc: 'Crop images precisely.' },
+          { name: 'Image to Text (OCR)', icon: 'fa-file-alt', desc: 'Extract text from pictures.' },
+          { name: 'Image Rotator / Flipper', icon: 'fa-undo-alt', desc: 'Rotate, flip, or mirror images.' }
+        ]
+      },
+      {
+        name: '📄 Document Tools',
+        sub: 'Handle PDFs and documents with ease.',
+        iconCat: 'fa-file-pdf',
+        tools: [
+          { name: 'PDF to Word / Word to PDF', icon: 'fa-file-word', desc: 'Convert documents both ways.' },
+          { name: 'PDF Compressor', icon: 'fa-compress', desc: 'Make PDFs smaller, still sharp.' },
+          { name: 'PDF Merger & Splitter', icon: 'fa-code-branch', desc: 'Combine or split PDF pages.' },
+          { name: 'Document Converter', icon: 'fa-file-lines', desc: 'Convert DOC, ODT, TXT and more.' },
+          { name: 'PDF Lock/Unlock', icon: 'fa-lock', desc: 'Add or remove password protection.' },
+          { name: 'eSign PDF', icon: 'fa-signature', desc: 'Digitally sign any PDF.' }
+        ]
+      },
+      {
+        name: '🧮 Calculator Tools',
+        sub: 'Numbers made simple — from basic to advanced.',
+        iconCat: 'fa-calculator',
+        tools: [
+          { name: 'Scientific Calculator', icon: 'fa-flask', desc: 'Trigonometry, log, exponents.' },
+          { name: 'Age Calculator', icon: 'fa-calendar-alt', desc: 'Calculate exact age.' },
+          { name: 'BMI Calculator', icon: 'fa-heartbeat', desc: 'Body mass index instantly.' },
+          { name: 'Loan EMI Calculator', icon: 'fa-coins', desc: 'Estimate monthly payments.' },
+          { name: 'GST Calculator', icon: 'fa-percent', desc: 'Add or remove GST.' },
+          { name: 'Currency Converter', icon: 'fa-dollar-sign', desc: 'Live exchange rates.' }
+        ]
+      },
+      {
+        name: '🔤 Text Tools',
+        sub: 'Manipulate, format, and analyze text.',
+        iconCat: 'fa-font',
+        tools: [
+          { name: 'Text Case Converter', icon: 'fa-arrow-up-wide-short', desc: 'UPPER, lower, Title Case.' },
+          { name: 'Word & Character Counter', icon: 'fa-calculator', desc: 'Count words, letters, sentences.' },
+          { name: 'Remove Duplicate Lines', icon: 'fa-eraser', desc: 'Clean up repetitive lines.' },
+          { name: 'Text Sorter', icon: 'fa-sort-alpha-down', desc: 'Alphabetical or reverse sort.' },
+          { name: 'Text Reverser', icon: 'fa-arrow-right-arrow-left', desc: 'Reverse entire text.' },
+          { name: 'Text Encryptor/Decryptor', icon: 'fa-shield', desc: 'AES encryption for text.' }
+        ]
+      },
+      {
+        name: '🌐 Web/Developer Tools',
+        sub: 'Code, JSON, URLs, colors — for devs.',
+        iconCat: 'fa-code',
+        tools: [
+          { name: 'HTML/CSS/JS Minifier', icon: 'fa-bolt', desc: 'Minify code for production.' },
+          { name: 'JSON Formatter & Validator', icon: 'fa-brackets-curly', desc: 'Pretty‑print & validate JSON.' },
+          { name: 'Base64 Encoder/Decoder', icon: 'fa-lock', desc: 'Encode to Base64 or decode.' },
+          { name: 'URL Encoder/Decoder', icon: 'fa-link', desc: 'Encode URLs for web.' },
+          { name: 'Color Picker & Converter', icon: 'fa-eye-dropper', desc: 'Pick, convert HEX/RGB/HSL.' },
+          { name: 'Regex Tester', icon: 'fa-code', desc: 'Test regular expressions.' }
+        ]
+      },
+      {
+        name: '🎨 Color Tools',
+        sub: 'Create, convert, and check color contrast.',
+        iconCat: 'fa-palette',
+        tools: [
+          { name: 'Color Picker from Image', icon: 'fa-image', desc: 'Extract palette from any image.' },
+          { name: 'HEX to RGB Converter', icon: 'fa-arrow-right-arrow-left', desc: 'Convert color codes.' },
+          { name: 'Gradient Generator', icon: 'fa-paint-brush', desc: 'Smooth CSS gradients.' },
+          { name: 'Contrast Checker', icon: 'fa-adjust', desc: 'WCAG contrast validation.' },
+          { name: 'Palette Generator', icon: 'fa-swatchbook', desc: 'Create harmonious palettes.' },
+          { name: 'Color Blindness Simulator', icon: 'fa-eye', desc: 'Preview for color blindness.' }
+        ]
+      },
+      {
+        name: '🌍 SEO & Marketing Tools',
+        sub: 'Optimize content and meta.',
+        iconCat: 'fa-chart-line',
+        tools: [
+          { name: 'Keyword Density Checker', icon: 'fa-key', desc: 'Analyze keyword frequency.' },
+          { name: 'Meta Tag Analyzer', icon: 'fa-tags', desc: 'Check meta title & description.' },
+          { name: 'Word Counter', icon: 'fa-calculator', desc: 'SEO word & character count.' }
+        ]
+      },
+      {
+        name: '🛠️ Utility Tools',
+        sub: 'Everyday helpers: QR, units, passwords.',
+        iconCat: 'fa-toolbox',
+        tools: [
+          { name: 'QR Code Generator & Scanner', icon: 'fa-qrcode', desc: 'Generate or scan QR codes.' },
+          { name: 'Barcode Generator', icon: 'fa-barcode', desc: 'Create barcodes (EAN, UPC).' },
+          { name: 'UUID Generator', icon: 'fa-fingerprint', desc: 'Generate random UUIDs.' },
+          { name: 'Unit Converter', icon: 'fa-scale-balanced', desc: 'Length, mass, volume, etc.' },
+          { name: 'Time Zone Converter', icon: 'fa-clock', desc: 'Convert times across zones.' },
+          { name: 'Random Number/Password Generator', icon: 'fa-dice', desc: 'Secure passwords & numbers.' }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('sectionsContainer');
+    const searchInput = document.getElementById('toolSearch');
+    const noResultsMsg = document.getElementById('noResultsMessage');
+
+    function renderAllSections() {
+      let htmlStr = '';
+      for (let cat of categories) {
+        htmlStr += `<section class="tool-section" data-category="${cat.name}">`;
+        htmlStr += `<h2 class="section-heading"><i class="fa-solid ${cat.iconCat}" style="color:#3b82f6;"></i> ${cat.name}</h2>`;
+        htmlStr += `<div class="section-sub">${cat.sub}</div>`;
+        htmlStr += `<div class="cards-grid" id="grid-${cat.name.replace(/\s/g,'')}">`;
+
+        for (let tool of cat.tools) {
+          // use tool-specific icon, fallback to category icon if missing
+          const iconClass = tool.icon || cat.iconCat;
+          const desc = tool.desc || `Easily ${tool.name.toLowerCase()}.`;
+          htmlStr += `
+            <div class="tool-card" data-toolname="${tool.name.toLowerCase()}">
+              <i class="fa-solid ${iconClass} card-icon"></i>
+              <h3>${tool.name}</h3>
+              <div class="tool-desc">${desc}</div>
+              <a href="#" class="card-btn">Use Tool <i class="fa-regular fa-arrow-right" style="font-size:0.8rem;"></i></a>
+            </div>
+          `;
+        }
+        htmlStr += `</div></section>`;
+      }
+      container.innerHTML = htmlStr;
+    }
+
+    renderAllSections();
+
+    // ---------- FILTER FUNCTION (live search) ----------
+    function filterTools() {
+      const term = searchInput.value.trim().toLowerCase();
+      const sections = document.querySelectorAll('.tool-section');
+      let anyVisible = false;
+
+      sections.forEach(section => {
+        const cards = section.querySelectorAll('.tool-card');
+        let sectionHasVisible = false;
+
+        cards.forEach(card => {
+          const toolName = card.getAttribute('data-toolname') || '';
+          if (toolName.includes(term) || term === '') {
+            card.style.display = '';
+            sectionHasVisible = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // hide whole section if no visible cards
+        if (sectionHasVisible) {
+          section.classList.remove('filter-hidden');
+          anyVisible = true;
+        } else {
+          section.classList.add('filter-hidden');
+        }
+      });
+
+      // show "no results" message if needed
+      if (!anyVisible && term !== '') {
+        noResultsMsg.style.display = 'block';
+      } else {
+        noResultsMsg.style.display = 'none';
+      }
+    }
+
+    // event listener
+    searchInput.addEventListener('input', filterTools);
+
+    // optional: clear filter on escape (UX)
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        filterTools();
+      }
+    });
+
+  })();
+</script>
+<!-- ensure any hidden sections on load are reset (in case of refresh) -->
+</body>
+</html>
